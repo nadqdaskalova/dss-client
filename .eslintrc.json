@@ -1,0 +1,89 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "cypress", "react", "react-hooks"],
+  "rules": {
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "no-console": "warn",
+    "max-len": [
+      "warn",
+      {
+        "code": 160
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/no-use-before-define": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-confusing-non-null-assertion": "warn",
+    "@typescript-eslint/no-duplicate-enum-values": "warn",
+    "@typescript-eslint/prefer-enum-initializers": "warn",
+    "@typescript-eslint/sort-type-constituents": "warn",
+    "default-case": "error",
+    "default-case-last": "warn",
+    "no-lonely-if": "warn",
+    "no-else-return": "warn",
+    "max-lines": ["error", { "skipComments": true }],
+    "no-nested-ternary": "warn",
+    "prefer-template": "warn",
+    "no-magic-numbers": ["warn", { "ignore": [1, 0], "ignoreArrayIndexes": true, "ignoreDefaultValues": true }],
+    "arrow-body-style": ["warn", "as-needed"],
+    "no-extra-boolean-cast": 0,
+    "no-undef": 0,
+    //
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": ["@mui/icons-material", "@mui/lab", "@mui/material"]
+      }
+    ],
+    "linebreak-style": 0,
+    "react/prop-types": [0],
+    "react/jsx-no-literals": 1,
+    "react/no-unespaced-entities": 0,
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx"]
+      },
+      "typescript": {}
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
+}
