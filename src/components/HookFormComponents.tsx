@@ -9,13 +9,9 @@ import withStyles from '@mui/styles/withStyles'
 import isEqual from 'fast-deep-equal'
 import isNaN from 'lodash/isNaN'
 import toString from 'lodash/toString'
-import MUIRichTextEditor from 'mui-rte'
 import React, { FocusEventHandler, HTMLInputTypeAttribute, useCallback } from 'react'
 import { Control, Controller, Path } from 'react-hook-form'
-import styled from 'styled-components'
 import { resolvePath } from '../helpers/HookFormComponentsHelpers'
-import BorderRadius from '../tokens/BorderRadius'
-import Spacings from '../tokens/Spacings'
 import StyledBox from './StyledBox'
 
 declare global {
@@ -116,27 +112,25 @@ export const DatePickerController = <T extends Record<string, any>>({
   inputFormat?: string
   readOnly?: boolean
   loading?: boolean
-}) => {
-  return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Controller
-        render={({ field: { onChange, value }, formState: { errors } }) => (
-          <DesktopDatePicker
-            readOnly={readOnly}
-            disabled={disabled}
-            label={label}
-            renderInput={(params) => <TextField {...params} />}
-            onChange={onChange}
-            value={value}
-            inputFormat={inputFormat}
-          />
-        )}
-        control={control}
-        name={name}
-      />
-    </LocalizationProvider>
-  )
-}
+}) => (
+  <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <Controller
+      render={({ field: { onChange, value }, formState: { errors } }) => (
+        <DesktopDatePicker
+          readOnly={readOnly}
+          disabled={disabled}
+          label={label}
+          renderInput={(params) => <TextField {...params} />}
+          onChange={onChange}
+          value={value}
+          inputFormat={inputFormat}
+        />
+      )}
+      control={control}
+      name={name}
+    />
+  </LocalizationProvider>
+)
 
 export function AutoCompleteController<T extends Record<string, any>>({
   name,
@@ -155,19 +149,16 @@ export function AutoCompleteController<T extends Record<string, any>>({
   onClose?: () => void
   placeholder?: string
   label?: string
-  onChange?: (value: string | number | Record<string, any>) => void
-  options: { label: string; value: string | number | Record<string, any> }[]
+  onChange?: (value: Record<string, any> | number | string) => void
+  options: { label: string; value: Record<string, any> | number | string }[]
   testId?: string
 }) {
   const getOptionValue = useCallback(
-    (value) => {
-      return (
-        options.find((option) => {
-          if (typeof option.value === 'object') return isEqual(option.value, value)
-          return option.value === value
-        }) || { label: '', value: '' }
-      )
-    },
+    (value) =>
+      options.find((option) => {
+        if (typeof option.value === 'object') return isEqual(option.value, value)
+        return option.value === value
+      }) || { label: '', value: '' },
     [options]
   )
 
@@ -264,117 +255,3 @@ export function CheckboxController<T extends Record<string, any>>({
     />
   )
 }
-
-// export function SwitchController<T extends Record<string, any>>({
-//   name,
-//   onBlur,
-//   control,
-//   disabled,
-//   label,
-//   labelPlacement = 'end',
-//   justifyContent = 'flex-start'
-// }: {
-//   name: Path<T>
-//   disabled?: boolean
-//   control: Control<T>
-//   label: string
-//   onBlur?: FocusEventHandler<HTMLButtonElement>
-//   justifyContent?: React.CSSProperties['justifyContent']
-//   labelPlacement?: FormControlLabelProps['labelPlacement']
-// }) {
-
-//   return (
-//     <FormControlLabel
-//       labelPlacement={labelPlacement}
-//       label={label}
-//       control={
-//         <Controller
-//           render={({ field: { onChange, value } }) => (
-//             <MaterialSwitchExperimental
-//               disabled={disabled}
-//               checked={Boolean(value)}
-//               onChange={onChange}
-//               onBlur={onBlur}
-//             />
-//           )}
-//           control={control}
-//           name={name}
-//         />
-//       }
-//       sx={{ marginRight: 0, marginLeft: 0, justifyContent }}
-//     />
-//   )
-// }
-
-export function EditorController<T extends Record<string, unknown>>({
-  name,
-  control,
-  labelTextKey,
-  labelText,
-  disabled,
-  loading,
-  onFocus,
-  onBlur,
-  placeholder,
-  defaultValue
-}: {
-  name: Path<T>
-  control: Control<T>
-  labelTextKey?: string
-  disabled?: boolean
-  loading?: boolean
-  labelText?: string
-  onFocus?: () => void
-  onBlur?: () => void
-  placeholder?: any
-  defaultValue?: any
-}) {
-  return (
-    <Controller
-      render={({ field: { onChange, value } }: any) => {
-        return (
-          <EditorWrapper fullWidth fullPadding spacing={Spacings.min}>
-            <MUIRichTextEditor
-              onChange={onChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              {...({ editorState: value } as any)}
-              label={placeholder}
-              {...(!!defaultValue && ({ defaultValue: defaultValue } as any))}
-              controls={['title', 'bold', 'italic', 'underline', 'strikethrough', 'undo', 'redo', 'quote', 'clear']}
-            />
-          </EditorWrapper>
-        )
-      }}
-      control={control}
-      name={name}
-    />
-  )
-}
-
-const EditorWrapper = styled(StyledBox)`
-  border-radius: ${BorderRadius.soft};
-  * {
-    position: relative !important;
-  }
-  #mui-rte-toolbar {
-    display: flex;
-    border: 1px solid rgba(0, 0, 0, 0.23);
-    border-radius: ${BorderRadius.soft};
-    margin-bottom: ${Spacings.medium};
-    padding-bottom: ${Spacings.min} !important;
-    button {
-      padding: 4px;
-    }
-  }
-  #mui-rte-container {
-    margin: 0 !important;
-  }
-
-  #mui-rte-editor {
-    margin-left: 12px;
-    max-height: 300px;
-    overflow: hidden;
-    overflow-y: scroll;
-  }
-`

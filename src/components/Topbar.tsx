@@ -30,7 +30,7 @@ export const getNavItems = () =>
     },
     {
       label: 'Register',
-      link: routePaths.login
+      link: routePaths.register
     }
   ].filter((item) => !!item)
 
