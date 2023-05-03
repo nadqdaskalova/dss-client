@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import EmojiEmotions from '@mui/icons-material/EmojiEmotions'
 import Reply from '@mui/icons-material/Reply'
 import { Avatar, ClickAwayListener } from '@mui/material'
@@ -18,7 +19,7 @@ interface ICommentEditor {
 }
 
 const CommentEditor: React.FC<ICommentEditor> = ({ articleId, setComments }) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const desc = useRef<any>()
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

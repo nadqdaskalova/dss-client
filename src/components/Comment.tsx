@@ -1,4 +1,5 @@
 import Delete from '@mui/icons-material/Delete'
+// eslint-disable-next-line no-restricted-imports
 import { Avatar } from '@mui/material'
 import React from 'react'
 import Colors from 'src/tokens/Colors'
@@ -52,7 +53,7 @@ const Comment: React.FC<IComment> = ({ comment }) => {
                 </GenericText>
               </StyledBox>
             </StyledBox>
-            {user?.name === state.user?.name && <Delete onClick={handleDeleteComment} />}
+            <StyledBox pointer>{user?.name === state.user?.name && <Delete onClick={handleDeleteComment} />}</StyledBox>
           </StyledBox>
           <StyledBox fullWidth gap={Spacings.min} left right spacing={Spacings.min}>
             <GenericText bottom={Spacings.min} alignText="justify" weight="400">

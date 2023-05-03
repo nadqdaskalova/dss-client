@@ -17,24 +17,22 @@ const ProjectLayout: React.FC<ProjectLayoutProps> = ({
   bottomSpace = Spacings.medium,
   children,
   childrenProps
-}) => {
-  return (
-    <StyledSnowContainer fullWidth>
-      <Topbar />
-      <ContentContainer fullWidth direction="row">
-        <StyledBox
-          fullWidth
-          direction="row"
-          bottom={!!bottomSpace && bottomSpace}
-          top={!!topSpace && topSpace}
-          {...childrenProps}
-        >
-          {children}
-        </StyledBox>
-      </ContentContainer>
-    </StyledSnowContainer>
-  )
-}
+}) => (
+  <StyledSnowContainer fullWidth>
+    <Topbar />
+    <ContentContainer fullWidth direction="row">
+      <StyledBox
+        fullWidth
+        direction="row"
+        bottom={!!bottomSpace && bottomSpace}
+        top={!!topSpace && topSpace}
+        {...childrenProps}
+      >
+        {children}
+      </StyledBox>
+    </ContentContainer>
+  </StyledSnowContainer>
+)
 
 export default React.memo(ProjectLayout)
 

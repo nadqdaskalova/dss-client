@@ -51,6 +51,7 @@ const Topbar: React.FC = () => {
             navItems.map(({ label, link }, idx) => (
               <NavItem
                 spacing={Spacings.small}
+                pointer
                 fullPadding
                 align="center"
                 justify="center"

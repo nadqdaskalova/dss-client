@@ -71,7 +71,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "next lint",
     "postinstall": "git submodule update --init --recursive",
     "postinstall-windows": "git submodule update --init --recursive --ignore-platform",
     "eslint-fix": "eslint src --fix --ext .ts,.tsx",

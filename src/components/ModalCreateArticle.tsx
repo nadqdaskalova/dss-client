@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Close } from '@mui/icons-material'
 import { Button } from '@mui/material'
@@ -107,16 +108,14 @@ const CloseButton = styled(StyledBox)`
 const StyledButton = styled(Button)`
   &&& {
     border-radius: ${BorderRadius.rounded};
-    box-shadow: ${Shadows.regular};
     padding: ${Spacings.tiny};
-    background-image: ${Colors.linearWhite};
-    color: ${Colors.hardGray};
+    box-shadow: ${Shadows.regularMed};
+    background-image: ${Colors.linearMainColor};
+    color: ${Colors.snow};
     text-transform: uppercase;
-
-    &:hover {
-      box-shadow: ${Shadows.regularMed};
-      background-image: ${Colors.linearMainColor};
-      color: ${Colors.snow};
-    }
+    transition: all 0.3s ease-in-out;
+  }
+  &:hover {
+    transform: scale(1.05);
   }
 `

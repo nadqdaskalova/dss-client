@@ -34,7 +34,7 @@ const RegisterPage = () => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Email is invalid').required('Email is required'),
-    password: Yup.string()
+    password: Yup.string().required('Password is required')
   })
 
   const { handleSubmit, trigger, control, watch } = useForm<RegisterForm>({
@@ -55,31 +55,29 @@ const RegisterPage = () => {
 
   return (
     <ProjectLayout>
-      <StyledBox align="center" justify="center" gap={Spacings.tiny}>
-        <TextFieldController control={control} name="name" placeholder={'Name'} />
-        <TextFieldController control={control} name="email" placeholder={'Email'} type="email" />
-        <TextFieldController control={control} name="password" type="password" placeholder={'Password'} />
+      <StyledBox fullWidth align="center" justify="center" gap={Spacings.tiny}>
+        <StyledBox align="center" justify="center" gap={Spacings.tiny}>
+          <TextFieldController control={control} name="name" placeholder={'Name'} />
+          <TextFieldController control={control} name="email" placeholder={'Email'} type="email" />
+          <TextFieldController control={control} name="password" type="password" placeholder={'Password'} />
+        </StyledBox>
+        <Button
+          alignText="center"
+          spacing={Spacings.tiny}
+          top
+          bottom
+          left={Spacings.medium}
+          right={Spacings.medium}
+          pointer
+          align="center"
+          justify="center"
+          onClick={handleSubmit((data) => handleRegisterButton(data))}
+        >
+          <GenericText uppercase weight="500" fontSize={Spacings.small} color={Colors.baseWhite} alignText="center">
+            {'Register'}
+          </GenericText>
+        </Button>
       </StyledBox>
-      <Button
-        fullWidth
-        radius="soft"
-        shadow="regular"
-        alignText="center"
-        spacing={Spacings.tiny}
-        top
-        bottom
-        left={Spacings.medium}
-        right={Spacings.medium}
-        pointer
-        transition
-        onClick={handleSubmit((data) => handleRegisterButton(data))}
-        align="center"
-        justify="center"
-      >
-        <GenericText uppercase weight="500" fontSize={Spacings.medium} color={Colors.baseWhite} alignText="center">
-          {'Register'}
-        </GenericText>
-      </Button>
     </ProjectLayout>
   )
 }
@@ -89,6 +87,8 @@ export default RegisterPage
 const Button = styled(StyledBox)`
   border: 2px solid transparent;
   background: ${Colors.linearMainColor} padding-box, ${Colors.linearMainColor} border-box;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
   &:hover {
     transform: scale(1.05);
   }

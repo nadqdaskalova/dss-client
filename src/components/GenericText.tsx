@@ -7,7 +7,7 @@ import Shadows from 'src/tokens/Shadows'
 import Spacings from 'src/tokens/Spacings'
 
 type DeterminePaddingPropsOverloads = {
-  (padding?: string | boolean, spacing?: string, fullPadding?: boolean, fallback?: string): string
+  (padding?: boolean | string, spacing?: string, fullPadding?: boolean, fallback?: string): string
 }
 
 export const determinePadding: DeterminePaddingPropsOverloads = (padding, spacing, fullPadding, fallback) => {
@@ -33,13 +33,13 @@ type GenericTextProps = {
   fullWidth?: boolean
   fullPadding?: boolean
   link?: boolean
-  alignText?: 'center' | 'left' | 'right' | 'justify'
-  direction?: 'row' | 'column' | 'column-reverse' | 'row-reverse'
+  alignText?: 'center' | 'justify' | 'left' | 'right'
+  direction?: 'column-reverse' | 'column' | 'row-reverse' | 'row'
   onClick?: (event?: any) => void
-  position?: 'relative' | 'absolute' | 'static' | 'sticky' | 'fixed'
+  position?: 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky'
   flex?: number | string
-  radius?: 'hard' | 'rounded' | 'soft' | 'verySoft' | 'circle'
-  shadow?: 'regular' | 'regularMin' | 'regularMed' | 'regularMax'
+  radius?: 'circle' | 'hard' | 'rounded' | 'soft' | 'verySoft'
+  shadow?: 'regular' | 'regularMax' | 'regularMed' | 'regularMin'
   transition?: boolean
   pointer?: boolean
   fontSize?: string
