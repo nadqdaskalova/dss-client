@@ -2,6 +2,8 @@
 import { Delete } from '@mui/icons-material'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import Colors from 'src/tokens/Colors'
+import Shadows from 'src/tokens/Shadows'
 import styled from 'styled-components'
 import { useAppState } from '../components/AuthProvider'
 import Comment from '../components/Comment'
@@ -11,8 +13,6 @@ import ProjectLayout from '../components/ProjectLayout'
 import StyledBox from '../components/StyledBox'
 import { deleteArticle, getArticleById } from '../helpers/ApiHandler'
 import Spacings from '../tokens/Spacings'
-import Colors from 'src/tokens/Colors'
-import Shadows from 'src/tokens/Shadows'
 
 const ArticlePage = () => {
   const { state, setState } = useAppState()
@@ -27,7 +27,7 @@ const ArticlePage = () => {
     getArticleById(id)
       .then((article) => {
         setArticle(article)
-        setComments(article.comments)
+        setComments(article?.comments || [])
       })
       .catch((error) => console.log(error))
   }, [id])
@@ -35,7 +35,7 @@ const ArticlePage = () => {
   const handleDeleteArticle = () => {
     deleteArticle(id)
       .then((res) => {
-        console.log(res)
+        window.location.reload()
       })
       .catch((error) => console.log(error))
   }
@@ -59,31 +59,39 @@ const ArticlePage = () => {
               </StyledBox>
             </StyledBox>
             <StyledBox gap={Spacings.tiny}>
-              {comments.map((commentsData: any) => (
-                <Comment key={commentsData.id} comment={commentsData} />
-              ))}
+              {comments &&
+                comments?.length > 0 &&
+                comments?.map((commentsData: any) => <Comment key={commentsData.id} comment={commentsData} />)}
             </StyledBox>
-            {state.user?.name && (
+            {!!state.user?.name && (
               <StyledBox top={Spacings.large} bottom={Spacings.medium}>
                 <CommentEditor articleId={id as string} setComments={setComments} />
               </StyledBox>
             )}
-            <Button
-              alignText="center"
-              spacing={Spacings.tiny}
-              top
-              bottom
-              left={Spacings.medium}
-              right={Spacings.medium}
-              pointer
-              onClick={handleDeleteArticle}
-              align="center"
-              justify="center"
-            >
-              <GenericText uppercase weight="500" fontSize={Spacings.small} color={Colors.baseWhite} alignText="center">
-                {'Delete Article'}
-              </GenericText>
-            </Button>
+            {!!state.user?.name && (
+              <Button
+                alignText="center"
+                spacing={Spacings.tiny}
+                top
+                bottom
+                left={Spacings.medium}
+                right={Spacings.medium}
+                pointer
+                onClick={handleDeleteArticle}
+                align="center"
+                justify="center"
+              >
+                <GenericText
+                  uppercase
+                  weight="500"
+                  fontSize={Spacings.small}
+                  color={Colors.baseWhite}
+                  alignText="center"
+                >
+                  {'Delete Article'}
+                </GenericText>
+              </Button>
+            )}
           </Wrapper>
         )}
       </StyledBox>

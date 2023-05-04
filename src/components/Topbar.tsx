@@ -18,29 +18,29 @@ export const getCurrentTab = (location: any, link: string) => {
   return locationName === trimmedLink
 }
 
-export const getNavItems = () =>
+export const getNavItems = (isAuthenticated: boolean) =>
   [
     {
       label: 'Home',
       link: routePaths.entry
     },
-    {
+    !isAuthenticated && {
       label: 'Login',
       link: routePaths.login
     },
-    {
+    !isAuthenticated && {
       label: 'Register',
       link: routePaths.register
     }
-  ].filter((item) => !!item)
+  ].filter((item) => !!item) as any
 
 const Topbar: React.FC = () => {
   const { state, setState } = useAppState()
   const [showCreateArticle, setShowCreateArticle] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
-  const navItems = useMemo(() => getNavItems(), [])
-
+  const navItems = useMemo(() => getNavItems(!!state.user?.name), [])
+  console.log(state)
   return (
     <Container fullWidth direction="row" position="sticky" className="guide-topbar" justify={'center'} align="center">
       <PublicTopBarWrapper direction="row" align="center" justify="center" alignSelf="center" fullWidth>

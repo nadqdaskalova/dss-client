@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
+import GenericText from 'src/components/GenericText'
 import ArticleHome from '../components/ArticleHome'
 import ProjectLayout from '../components/ProjectLayout'
 import StyledBox from '../components/StyledBox'
 import { getArticles } from '../helpers/ApiHandler'
 import Spacings from '../tokens/Spacings'
-import GenericText from 'src/components/GenericText'
 
 const HomePage = () => {
   const [articles, setArticles] = useState([])
@@ -31,7 +31,7 @@ const HomePage = () => {
         {articles.map((articleData: any) => (
           <ArticleHome key={articleData.id} {...articleData} />
         ))}
-        {(!articles || articles.length === 0) && <GenericText>{`There are no articles yet!`}</GenericText>}
+        {!articles?.length && <GenericText>{`There are no articles yet!`}</GenericText>}
       </StyledBox>
     </ProjectLayout>
   )
